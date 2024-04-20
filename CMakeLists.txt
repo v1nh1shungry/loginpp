@@ -26,6 +26,7 @@ add_library(loginpp SHARED
   src/client_factory.cpp
   src/ftp.cpp
   src/mysql.cpp
+  src/postgresql.cpp
   src/sftp.cpp
   src/telnet.cpp
 )
