@@ -175,12 +175,19 @@ protected:
     auth_response.resize(auth_response_length);
     boost::asio::read(socket, boost::asio::buffer(auth_response));
     assert(flag == 'R');
+    // auth_response_length =
+    //     boost::endian::big_to_native(auth_response_length) - 4;
+    // std::vector<char> auth_response;
+    // auth_response.resize(auth_response_length);
+    // boost::asio::read(socket, boost::asio::buffer(auth_response));
+    // assert(flag == 'R');
     int32_t status;
     std::copy(auth_response.begin(), auth_response.end(),
               reinterpret_cast<char *>(&status));
     boost::endian::big_to_native_inplace(status);
     if (status == 0) {
       std::cout << "login successfully" << std::endl;
+      // DEBUG
       std::this_thread::sleep_for(std::chrono::seconds(10));
       return true;
     }

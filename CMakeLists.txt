@@ -27,6 +27,7 @@ add_library(loginpp SHARED
   src/ftp.cpp
   src/mysql.cpp
   src/postgresql.cpp
+  src/redis.cpp
   src/sftp.cpp
   src/telnet.cpp
 )
