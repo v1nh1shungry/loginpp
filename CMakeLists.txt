@@ -19,7 +19,9 @@ find_package(Boost REQUIRED)
 find_package(OpenSSL REQUIRED)
 
 include(cmake/CPM.cmake)
+# gersemi: off
 CPMAddPackage("gh:p-ranav/argparse@3.0")
+# gersemi: on
 
 add_library(loginpp SHARED
   src/client.cpp

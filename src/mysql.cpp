@@ -252,17 +252,24 @@ protected:
               << std::endl;
     int8_t header;
     boost::asio::read(socket, boost::asio::buffer(&header, sizeof(header)));
-    if (header == 0 or header == 1) {
+    if (header == 0) {
       std::cout << "login successfully" << std::endl;
       // DEBUG
       std::this_thread::sleep_for(std::chrono::seconds(5));
       return true;
-      // } else if (header == 1) {
-      //   int8_t flag;
-      //   boost::asio::read(socket, boost::asio::buffer(&flag, sizeof(flag)));
-      //   std::cerr << "DEBUGPRINT[1]: mysql.cpp:208: flag="
-      //             << static_cast<int>(flag) << std::endl;
-      //   return true;
+    } else if (header == 1) {
+      int8_t flag;
+      boost::asio::read(socket, boost::asio::buffer(&flag, sizeof(flag)));
+      std::cerr << "DEBUGPRINT[1]: mysql.cpp:208: flag="
+                << static_cast<int>(flag) << std::endl;
+      if (flag == 3) {
+        std::cout << "login successfully" << std::endl;
+        // DEBUG
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        return true;
+      }
+      std::cerr << "failed to login: invalid password" << std::endl;
+      return false;
     }
     std::cerr << "error code: " << std::hex << static_cast<unsigned int>(header)
               << std::endl;

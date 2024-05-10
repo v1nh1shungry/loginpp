@@ -174,7 +174,11 @@ protected:
     std::vector<char> auth_response;
     auth_response.resize(auth_response_length);
     boost::asio::read(socket, boost::asio::buffer(auth_response));
-    assert(flag == 'R');
+    // assert(flag == 'R');
+    if (flag != 'R') {
+      std::cerr << "failed to login: invalid password" << std::endl;
+      return false;
+    }
     // auth_response_length =
     //     boost::endian::big_to_native(auth_response_length) - 4;
     // std::vector<char> auth_response;
